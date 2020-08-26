@@ -2,9 +2,11 @@
 
 #pragma once
 
+//#include "Enemy.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Engine/TriggerVolume.h"
+#include "Enemy.h"
 #include "Door.generated.h"
 
 UCLASS()
@@ -16,23 +18,23 @@ public:
 	// Sets default values for this actor's properties
 	ADoor();
 
+	UPROPERTY(EditAnywhere, Category = Enemies)
+		TArray<AEnemy*> RemainingEnemies;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
-	// Called every frame
+
 	virtual void Tick(float DeltaTime) override;
 	void OpenDoor(float DeltaTime);
-	int RemainingEnemies() const;
+	bool CanOpen();
 
 private:
 
 	float InitialYaw;
 	float CurrentYaw;
-	
-	UPROPERTY(EditAnywhere)
-		ATriggerVolume* PressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
 		float TargetYaw = 90.f;

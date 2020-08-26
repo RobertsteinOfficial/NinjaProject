@@ -3,6 +3,7 @@
 
 #include "Door.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 
 // Sets default values
 ADoor::ADoor()
@@ -17,14 +18,9 @@ void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	InitialYaw = GetOwner()->GetActorRotation().Yaw;
+	/*InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
-	TargetYaw += InitialYaw;
-
-	if (!PressurePlate)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s does not have the pressure plate set"), *GetOwner()->GetName());
-	}
+	TargetYaw += InitialYaw;*/
 
 }
 
@@ -33,7 +29,7 @@ void ADoor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (RemainingEnemies() == 0)
+	if (CanOpen())
 	{
 		OpenDoor(DeltaTime);
 	}
@@ -43,14 +39,25 @@ void ADoor::Tick(float DeltaTime)
 void ADoor::OpenDoor(float DeltaTime)
 {
 	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, DeltaTime * DoorOpenSpeed);
-	FRotator DoorRotation = GetOwner()->GetActorRotation();
+	FRotator DoorRotation = this->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
-	GetOwner()->SetActorRotation(DoorRotation);
+	this->SetActorRotation(DoorRotation);
 }
 
-int ADoor::RemainingEnemies() const
+
+bool ADoor::CanOpen()
 {
-	TArray<AActor*> EnemiesToKill;
-	EnemiesToKill = U
-		
+
+	for (int i = 0; i < RemainingEnemies.Num(); i++)
+	{
+		if (RemainingEnemies[i])
+		{
+			if (RemainingEnemies[i]->IsAlive)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
