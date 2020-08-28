@@ -31,6 +31,11 @@ void ADoor::Tick(float DeltaTime)
 
 	if (CanOpen())
 	{
+		if (!IsOpen)
+		{
+			DoorOpened.Broadcast(true);
+		}
+
 		OpenDoor(DeltaTime);
 	}
 
@@ -38,6 +43,7 @@ void ADoor::Tick(float DeltaTime)
 
 void ADoor::OpenDoor(float DeltaTime)
 {
+	IsOpen = true;
 	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, DeltaTime * DoorOpenSpeed);
 	FRotator DoorRotation = this->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;

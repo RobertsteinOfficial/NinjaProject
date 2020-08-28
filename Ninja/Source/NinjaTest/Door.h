@@ -9,6 +9,10 @@
 #include "Enemy.h"
 #include "Door.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnOpenDoor, bool, Value);
+
+
 UCLASS()
 class NINJATEST_API ADoor : public AActor
 {
@@ -31,10 +35,15 @@ public:
 	void OpenDoor(float DeltaTime);
 	bool CanOpen();
 
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = "Dispatchers")
+		FOnOpenDoor DoorOpened;
+
 private:
 
 	float InitialYaw;
 	float CurrentYaw;
+	bool IsOpen = false;
+
 
 	UPROPERTY(EditAnywhere)
 		float TargetYaw = 90.f;
