@@ -11,7 +11,7 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnOpenDoor, bool, Value);
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWinGame, bool, Value);
 
 UCLASS()
 class NINJATEST_API ADoor : public AActor
@@ -24,6 +24,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Enemies)
 		TArray<AEnemy*> RemainingEnemies;
+
+	UPROPERTY(EditAnywhere, Category = Enemies)
+		AEnemy* Boss;
 
 protected:
 	// Called when the game starts or when spawned
@@ -38,12 +41,15 @@ public:
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = "Dispatchers")
 		FOnOpenDoor DoorOpened;
 
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = "Dispatchers")
+		FOnWinGame GameWon;
+
 private:
 
 	float InitialYaw;
 	float CurrentYaw;
 	bool IsOpen = false;
-
+	bool WonGame = false;
 
 	UPROPERTY(EditAnywhere)
 		float TargetYaw = 90.f;

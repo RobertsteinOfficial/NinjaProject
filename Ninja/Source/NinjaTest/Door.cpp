@@ -18,9 +18,9 @@ void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	/*InitialYaw = GetOwner()->GetActorRotation().Yaw;
+	InitialYaw = this->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
-	TargetYaw += InitialYaw;*/
+	TargetYaw += InitialYaw;
 
 }
 
@@ -37,6 +37,15 @@ void ADoor::Tick(float DeltaTime)
 		}
 
 		OpenDoor(DeltaTime);
+	}
+
+	if (Boss)
+	{
+		if (!Boss->IsAlive && !WonGame)
+		{
+			WonGame = true;
+			GameWon.Broadcast(true);
+		}
 	}
 
 }
