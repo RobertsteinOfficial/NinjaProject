@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "Enemy.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEnemyDeath);
+
+
 UCLASS()
 class NINJATEST_API AEnemy : public ACharacter
 {
@@ -23,6 +26,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Game, meta = (AllowPrivateAccess = "true"))
 		bool IsAlive = true;
+
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = "Dispatchers")
+		FOnEnemyDeath EnemyDead;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
