@@ -1,22 +1,3 @@
-{
-	"FileVersion": 3,
-	"EngineAssociation": "4.24",
-	"Category": "",
-	"Description": "",
-	"Modules": [
-		{
-			"Name": "NinjaTest",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine"
-			]
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "FMODStudio",
-			"Enabled": true
-		}
-	]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cc928197ba14e6f3af52851315548f312bc422bb4931748a57fe21b9b08a1eec
+size 330
